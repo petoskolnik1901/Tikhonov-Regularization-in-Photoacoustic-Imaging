@@ -10,11 +10,6 @@ from kwave.options.simulation_options import SimulationOptions
 
 
 def generate_dst_basis(grid_size, max_frequency):
-    """
-    Returns basis array of shape (n_basis, N, N).
-    Keeps all (k,l) with k <= max_frequency and l <= max_frequency (square cutoff).
-    k, l start at 1 (no DC component).
-    """
     basis = []
     x = np.arange(grid_size)
 
@@ -242,17 +237,17 @@ def disk_phantom(pic_size):
     phantom = np.zeros_like(X)
     r = 0.08
     diagonal_disks = [
-        (-0.6, 0.6),  # near L-corner
+        (-0.6, 0.6),
         (-0.3, 0.3),
-        (0.0, 0.0),  # center
+        (0.0, 0.0),
         (0.3, -0.3),
-        (0.6, -0.6),  # far corner — disappears first
+        (0.6, -0.6),
     ]
     off_diagonal_disks = [
-        (0.6, 0.4),  # far from left detector, close to bottom
-        (-0.4, -0.6),  # close to left detector, far from bottom
-        (0.3, 0.3),  # far from both but not on diagonal
-        (-0.2, -0.2),  # close to both but not on diagonal
+        (0.6, 0.4),
+        (-0.4, -0.6),
+        (0.3, 0.3),
+        (-0.2, -0.2),
     ]
     for cx, cy in diagonal_disks:
         mask = (X - cx) ** 2 + (Y - cy) ** 2 <= r**2
